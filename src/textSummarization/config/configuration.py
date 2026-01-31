@@ -29,3 +29,24 @@ class ConfigurationManager:
         )
 
         return data_ingestion_config
+    
+    
+    
+from textSummarization.entity.config_entity import DataValidationConfig
+
+class ConfigurationManager:
+    def __init__(self, config_filepath=CONFIG_FILE_PATH, params_filepath=PARAMS_FILE_PATH):
+        self.config = read_yaml(config_filepath)
+        self.params = read_yaml(params_filepath)
+
+    def get_data_validation_config(self) -> DataValidationConfig:
+        config = self.config.data_validation
+
+        data_validation_config = DataValidationConfig(
+            root_dir=Path(config.root_dir),
+            STATUS_FILE=Path(config.STATUS_FILE),
+            unzip_data_dir=Path(config.unzip_data_dir),
+            all_required_files=config.all_required_files
+        )
+
+        return data_validation_config
